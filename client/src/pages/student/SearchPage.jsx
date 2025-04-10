@@ -20,7 +20,8 @@ const SearchPage = () => {
         sortByPrice
     });
 
-    const isEmpty = !isLoading && data?.courses.length === 0
+    const isEmpty = !isLoading && (!data || !data.courses || data.courses.length === 0);
+
 
     const handleFilterChange = (categories, price) => {
         setSelectedCategories(categories);
@@ -50,13 +51,15 @@ const SearchPage = () => {
                 <div className='flex-1'>
                     {
                         isLoading ? (
-                            Array.from({ length: 3 }).map((_, idx) => {
+                            Array.from({ length: 3 }).map((_, idx) => (
                                 <CourseSkeleton key={idx} />
-                            })
-                        ) : isEmpty ? (<CourseNotFound />) : (
-                            data?.courses.map((course) => {
-                                return <SearchResult key={course._id} course={course} />
-                            })
+                            ))
+                        ) : isEmpty ? (
+                            <CourseNotFound />
+                        ) : (
+                            data?.courses?.map((course) => (
+                                <SearchResult key={course._id} course={course} />
+                            ))
                         )
                     }
                 </div>

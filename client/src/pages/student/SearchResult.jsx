@@ -3,6 +3,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const SearchResult = ({ course }) => {
+    if (!course) return <div>Course info not available</div>;
     return (
         <div className="bg-white dark:bg-zinc-800 rounded-2xl shadow-sm hover:shadow-md transition-shadow p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-zinc-200 dark:border-zinc-700">
             <Link
@@ -28,7 +29,7 @@ const SearchResult = ({ course }) => {
             </div>
         </div>
     );
-    
+
 }
 
 export default SearchResult
