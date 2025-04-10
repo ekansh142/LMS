@@ -19,9 +19,14 @@ app.use(express.json());
 
 app.use(cookieParser());
 
+const allowedOrigins = [
+    "http://localhost:5173", // for local development
+    "https://your-frontend.vercel.app" // replace with your deployed frontend URL
+];
+
 app.use(cors({
-    origin: "http://localhost:5173",
-    credentials: true
+    origin: allowedOrigins,
+    credentials: true,
 }));
 
 app.use("/api/v1/user", userRoute);
