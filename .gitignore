@@ -1,0 +1,14 @@
+# Ignore env files
+*.env
+client/.env
+server/.env
+
+# Ignore node_modules
+client/node_modules/
+server/node_modules/
+
+# Ignore system files
+.DS_Store
+*.log
+
+server/uploads/
