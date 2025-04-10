@@ -41,10 +41,11 @@ export const searchCourse = async (req, res) => {
                 { subTitle: { $regex: query, $options: "i" } },
                 { category: { $regex: query, $options: "i" } }
             ]
-        }
+        };
 
-        if (categories.length > 0) {
-            searchCriteria.category = { $in: categories }
+        const categoryArray = categories ? categories.split(",") : [];
+        if (categoryArray.length > 0) {
+            searchCriteria.category = { $in: categoryArray };
         }
 
         const sortOptions = {};
@@ -54,15 +55,24 @@ export const searchCourse = async (req, res) => {
             sortOptions.coursePrice = -1;
         }
 
-        let courses = await Course.find(searchCriteria).populate({ path: "creator", select: "name photoUrl" }).sort(sortOptions);
+        const courses = await Course.find(searchCriteria)
+            .populate({ path: "creator", select: "name photoUrl" })
+            .sort(sortOptions);
+
         return res.status(200).json({
             success: true,
             courses: courses || []
-        })
+        });
+
     } catch (error) {
-        console.log(error)
+        console.error(error);
+        return res.status(500).json({
+            success: false,
+            message: "Something went wrong while searching courses."
+        });
     }
-}
+};
+
 
 export const getPublishedCourse = async (_, res) => {
     try {
