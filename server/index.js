@@ -21,7 +21,7 @@ app.use(cookieParser());
 
 const allowedOrigins = [
     "http://localhost:5173", // for local development
-    "https://your-frontend.vercel.app" // replace with your deployed frontend URL
+    "https://lms-one-omega.vercel.app" // replace with your deployed frontend URL
 ];
 
 app.use(cors({
