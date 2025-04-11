@@ -20,14 +20,21 @@ app.use(express.json());
 app.use(cookieParser());
 
 const allowedOrigins = [
-    "http://localhost:5173", // for local development
-    "https://lms-one-omega.vercel.app" // replace with your deployed frontend URL
+    "http://localhost:5173",
+    "https://lms-one-omega.vercel.app"
 ];
 
 app.use(cors({
-    origin: allowedOrigins,
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
     credentials: true,
 }));
+
 
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/course", courseRoute);
