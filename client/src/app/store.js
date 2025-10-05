@@ -4,6 +4,7 @@ import { authApi } from "@/features/api/authApi";
 import { courseApi } from "@/features/api/courseApi";
 import { coursePurchaseApi } from "@/features/api/purchaseCourseApi";
 import { courseProgressApi } from "@/features/api/courseProgressApi";
+//store root reducer
 
 export const appStore = configureStore({
     reducer: rootReducer,
